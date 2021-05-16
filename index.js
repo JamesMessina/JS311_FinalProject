@@ -1,11 +1,12 @@
 //** requirements */
-const pool = require('./sql/connection.js')
 const express = require('express'); 
 const app = express(); 
 const bodyParser = require('body-parser');
+const bandsRouter = require('./routes/bands.js'); 
 
 //**middleware */
 app.use(bodyParser.json()); 
+app.use(bandsRouter); 
 
 
 app.get('/', function(req, res){
