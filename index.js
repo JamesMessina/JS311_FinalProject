@@ -11,12 +11,12 @@ app.use(bandsRouter);
 
 
 app.get('/', function(req, res){
-    res.send('default njnj');
+    res.send('default');
     console.log('success, in the default route')
 })
 
 //** streaming ports */
-const port = process.env.PORT || 4000;  
+const port = process.env.PORT || 3306;  
 app.listen(port, () => {
     console.log('music app is listening on port:', port); 
 })
