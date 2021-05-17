@@ -17,4 +17,4 @@ pool.getConnection(function(err, connection){
     console.log('connected to mysql with id ' + connection.threadId); 
 })
 
-module.exports = pool; 
+module.exports = pool;    
