@@ -11,7 +11,7 @@ app.use(bandsRouter);
 
 
 app.get('/', function(req, res){
-    res.send('default');
+    res.send('default njnj');
     console.log('success, in the default route')
 })
 
