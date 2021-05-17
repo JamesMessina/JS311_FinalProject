@@ -4,7 +4,9 @@ const bandsController = require('../controllers/bands.js');
 
 router.get('/listAllBands', bandsController.getListOfAllBands); 
 
-router.get('/bands/bandName/:band_Name', bandsController.getBandInfoByBandName); 
+router.get('/bands/bandname/:band_name', bandsController.getBandInfoByBandName); 
+
+router.get('/bands/bandId/:band_id', bandsController.getBandInfoByBandId); 
 
 module.exports = router; 
 
