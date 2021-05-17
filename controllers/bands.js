@@ -9,7 +9,7 @@ function getListOfAllBands(req, res){
     pool.query(sql, function(err, results){
         if(err){
             console.error({ 'message': 'Error occured: Cannot fetch list of all bands ' + err })
-            res.status(500).send('Internal Server Error');
+            res.status(500).send('Internal Server Error' + err);
         }else{
             res.json(results); 
             console.log('success!'); 
@@ -21,7 +21,7 @@ function getBandInfoByBandName(req, res){
     let bandName = req.params.band_Name; 
     console.log('Fetching information about ' + bandName);
 
-    
+
 
 }
 
