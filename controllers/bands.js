@@ -18,7 +18,7 @@ function getListOfAllBands(req, res){
 }
 
 function getBandInfoByBandName(req, res){
-    let bandName = req.params.band_name; 
+    let bandName = req.params.query; 
     console.log('Fetching information about ' + bandName);
 
     let sql = `SELECT * FROM bands WHERE band_name = ?`;

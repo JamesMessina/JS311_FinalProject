@@ -13,8 +13,8 @@ app.use(bandhistoryRouter);
 
 
 app.get('/', function(req, res){
-    res.send('default');
-    console.log('success, in the default route')
+    res.send('Welcome to my app: MusicLibrary');
+    console.log('success, in the default welcome route')
 })
 
 //** streaming ports */

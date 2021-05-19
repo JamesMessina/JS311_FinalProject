@@ -3,14 +3,14 @@ const router = express.Router();
 const bandhistoryController = require('../controllers/bandHistory.js');
 
 
-router.get('/listBandHistories', bandhistoryController.getBandHistories); 
+router.get('/bandhistories', bandhistoryController.getBandHistories); 
 
-router.get('/bandhistory/')
+router.get('/bandhistory/search/:query')
 
 router.post('/bandhistories', bandhistoryController.createNewBandHistory); 
 
-router.put('/bandhistories/id/:id', bandhistoryController.updateBandHistoryById); 
+router.put('/bandhistories/:id', bandhistoryController.updateBandHistoryById); 
 
-router.delete('/bandhistories/id/:id', bandhistoryController.deleteBandHistoryById); 
+router.delete('/bandhistories/:id', bandhistoryController.deleteBandHistoryById); 
 
 module.exports = router; 
