@@ -35,16 +35,16 @@ function getBandHistoryByBandName(req, res){
     pool.query(sqlStmt, function(err, results){
         if(err){
             console.err('Internal server error occured ', err, err.stack);
-            res.sendStatus(500).send('error occured on server side');
+            res.status(500).send('error occured on server side');
         }else if(results.length === 0){
             console.log('no data found');
             res.status(404).send('band history for ' + bandname + ' not found.'); 
         }else if(results.length > 1){
             console.error('error. Multiple histories found for the same band');
-            res.sendStatus(300).send('your search query had more than 1 response. See data.')
+            res.status(300).send('your search query had more than 1 response. See data.')
         }else{
-            res.json(results[0]);
-            console.log('band history fund by band name!')
+            res.json(results[0])
+            console.log('band history found by band name!')
         }
     })
 
@@ -101,7 +101,7 @@ function updateBandHistoryById(req, res){
 
 function deleteBandHistoryById(req, res){
     let id = req.params.id;
-    console.log('in the delete band history by id function deleting band with id ' + id); 
+    console.log('in the delete band history by id function deleting band history with id ' + id); 
 
     let sql = `DELETE FROM bandhistory WHERE id = ?`
     let replaceVals = [id];
