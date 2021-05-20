@@ -18,6 +18,38 @@ function getBandHistories(req, res){
     })
 }
 
+function getBandHistoryByBandName(req, res){
+    let bandname = req.params.query
+    console.log('in the get band history by band name route/path. Getting info on ' + bandname); 
+    
+    let sqlStmt = `SELECT bands.band_name, bands.origin, bands.yearsActive, bandhistory.bio, bandhistory.past_members
+    FROM bandhistory
+    JOIN bands
+    ON bands.history_id = bandhistory.id
+    WHERE band_name = ?
+    GROUP BY band_name`
+
+    let replaceVals = [bandname]; 
+    sqlStmt = mysql.format(sqlStmt, replaceVals); 
+
+    pool.query(sqlStmt, function(err, results){
+        if(err){
+            console.err('Internal server error occured ', err, err.stack);
+            res.sendStatus(500).send('error occured on server side');
+        }else if(results.length === 0){
+            console.log('no data found');
+            res.status(404).send('band history for ' + bandname + ' not found.'); 
+        }else if(results.length > 1){
+            console.error('error. Multiple histories found for the same band');
+            res.sendStatus(300).send('your search query had more than 1 response. See data.')
+        }else{
+            res.json(results[0]);
+            console.log('band history fund by band name!')
+        }
+    })
+
+}
+
 
 function createNewBandHistory(req, res){
     console.log('in the create band history route/path');
@@ -85,4 +117,8 @@ function deleteBandHistoryById(req, res){
     })
 }
 
-module.exports = { createNewBandHistory, getBandHistories, deleteBandHistoryById, updateBandHistoryById }
+module.exports = { createNewBandHistory, 
+getBandHistories, 
+deleteBandHistoryById, 
+updateBandHistoryById,
+getBandHistoryByBandName }

@@ -5,7 +5,7 @@ const bandhistoryController = require('../controllers/bandHistory.js');
 
 router.get('/bandhistories', bandhistoryController.getBandHistories); 
 
-router.get('/bandhistory/search/:query')
+router.get('/bandhistory/search/:query', bandhistoryController.getBandHistoryByBandName); 
 
 router.post('/bandhistories', bandhistoryController.createNewBandHistory); 
 
