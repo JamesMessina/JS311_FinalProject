@@ -8,6 +8,8 @@ router.get('/bands/search/:query', bandsController.getBandInfoByBandName);
 
 router.get('/bands/:band_id', bandsController.getBandInfoByBandId); 
 
+router.postg
+
 module.exports = router; 
 
 
