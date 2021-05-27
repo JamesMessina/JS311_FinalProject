@@ -8,7 +8,11 @@ router.get('/bands/search/:query', bandsController.getBandInfoByBandName);
 
 router.get('/bands/:band_id', bandsController.getBandInfoByBandId); 
 
-router.postg
+router.post('/bands', bandsController.createNewBand); 
+
+router.put('/bands/:id', bandsController.updateBandByBandId); 
+
+router.delete('/bands/:id', bandsController.deleteBandByBandId); 
 
 module.exports = router; 
 

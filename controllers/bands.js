@@ -69,4 +69,88 @@ function getBandInfoByBandId(req, res){
 
 }
 
-module.exports = { getListOfAllBands, getBandInfoByBandName, getBandInfoByBandId } 
+function createNewBand(req, res){
+    console.log('in the create new band function');
+
+    let newBand = {
+        band_name: req.body.band_name,
+        genre_id: req.body.genre_id,
+        subgenre_id: req.body.subgenre_id,
+        origin: req.body.origin,
+        yearsActive: req.body.yearsActive,
+        website: req.body.website, 
+        currentMembers: req.body.currentMembers,
+        history_id: req.body.history_id
+    }
+
+    let sql = `INSERT INTO bands (band_name, genre_id, subgenre_id, origin, yearsActive, website, currentMembers, history_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    let replacements = [newBand.band_name, newBand.genre_id, newBand.subgenre_id, newBand.origin, newBand.yearsActive, newBand.website, newBand.currentMembers, newBand.history_id]
+    sql = mysql.format(sql, replacements); 
+
+    pool.query(sql, function(err, results){
+        if(err){
+            console.error('Internal Service Error ', err);
+            res.status(500).send('Server Error Occured')
+        }else{
+            res.json(newBand); 
+            console.log('created new band ' + newBand.band_name);
+        }
+    }) 
+}
+
+function updateBandByBandId(req, res){
+    console.log('in the update band by band id function');
+    let id = req.params.id
+
+    let updatedBand = {
+        band_name: req.body.band_name,
+        genre_id: req.body.genre_id,
+        subgenre_id: req.body.subgenre_id,
+        origin: req.body.origin,
+        yearsActive: req.body.yearsActive,
+        website: req.body.website, 
+        currentMembers: req.body.currentMembers,
+        history_id: req.body.history_id
+    }
+
+    let sql = `UPDATE bands SET band_name = ?, genre_id = ?, subgenre_id = ?, origin = ?, yearsActive = ?, website = ?, currentMembers = ?, history_id = ?
+    WHERE band_id = ?`
+    let replacements = [updatedBand.band_name, updatedBand.genre_id, updatedBand.subgenre_id, updatedBand.origin, updatedBand.yearsActive, updatedBand.website, updatedBand.currentMembers, updatedBand.history_id, id]
+    sql = mysql.format(sql, replacements); 
+
+    pool.query(sql, function(err, results){
+        if(err){
+            console.error('Internal Service Error ', err);
+            res.sendStatus(500); 
+        }else{
+            res.json(updatedBand);
+            console.log('band with band id ' + id + ' successfully updated'); 
+        }
+    })
+}
+
+function deleteBandByBandId(req, res){
+    let id = req.params.id;
+    console.log('in the delete band by band id function'); 
+
+    let sql = `DELETE FROM bands WHERE band_id = ?`
+    let replaceVals = [id];
+    sql = mysql.format(sql, replaceVals);
+
+    pool.query(sql, function(err, results){
+        if(err){
+            console.error('Internal Service Error ', err);
+            res.sendStatus(500); 
+        }else{
+            res.send('band with band id ' + id + ' deleted'); 
+        }
+    })
+}
+
+module.exports = { getListOfAllBands, 
+getBandInfoByBandName, 
+getBandInfoByBandId,
+createNewBand,
+updateBandByBandId,
+deleteBandByBandId } 

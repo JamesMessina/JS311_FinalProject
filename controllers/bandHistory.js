@@ -13,7 +13,7 @@ function listBandHistories(req, res){
             res.status(500).send('Internal Server Error' + err);
         }else{
             res.json(results); 
-            console.log('band histories returned')
+            console.log('band histories returned'); 
         }
     })
 }
@@ -129,7 +129,6 @@ function createNewBandHistory(req, res){
             console.log('created new band history'); 
         }
     })
-
 }
 
 function updateBandHistoryById(req, res){
