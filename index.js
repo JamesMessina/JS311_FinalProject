@@ -3,12 +3,16 @@
 const express = require('express'); 
 const app = express(); 
 const bodyParser = require('body-parser');
+const authRouter = require('./routes/auth.js')
 const bandsRouter = require('./routes/bands.js'); 
 const bandhistoryRouter = require('./routes/bandHistory.js');
 const genreRouter = require('./routes/genres.js');
+const { logger } = require('./middleware/index.js')
 
 //**middleware */
 app.use(bodyParser.json()); 
+app.use(authRouter); 
+app.use(logger);
 app.use(bandsRouter); 
 app.use(bandhistoryRouter); 
 app.use(genreRouter); 
