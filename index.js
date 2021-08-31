@@ -2,6 +2,7 @@
 
 const express = require('express'); 
 const app = express(); 
+const cors = require('cors'); 
 const bodyParser = require('body-parser');
 const authRouter = require('./routes/auth.js')
 const bandsRouter = require('./routes/bands.js'); 
@@ -11,6 +12,7 @@ const { logger } = require('./middleware/index.js')
 
 //**middleware */
 app.use(bodyParser.json()); 
+app.use(cors())
 app.use(authRouter); 
 app.use(logger);
 app.use(bandsRouter); 

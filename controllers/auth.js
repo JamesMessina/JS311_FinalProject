@@ -2,7 +2,8 @@ const axios = require('axios');
 
  
 function login (req, res){
-    const { username, password } = req.body
+    console.log("posting in the auth login route")
+    const { email, password } = req.body
   
     axios(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
       method: 'POST',
@@ -11,7 +12,7 @@ function login (req, res){
       },
       data: {
         grant_type: 'password',
-        username: username,
+        username: email,
         password: password,
         audience: process.env.AUTH0_IDENTITY,
         connection: 'Username-Password-Authentication',
