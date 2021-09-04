@@ -26,8 +26,9 @@ function login (req, res){
         access_token
       })
     })
-    .catch(e => {
-      res.send(e)
+    .catch(() => {
+      res.status(400).send("incorrect email or password");
+      return 
     })
 }
 
