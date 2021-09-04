@@ -28,7 +28,6 @@ function login (req, res){
     })
     .catch(() => {
       res.status(400).send("incorrect email or password");
-      return; 
     })
 }
 
