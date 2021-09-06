@@ -1,5 +1,6 @@
 const pool = require('../sql/connection.js');
 const mysql = require('mysql');
+const jwt = require("jsonwebtoken");
  
 function signIn (req, res){
     const { email, password } = req.body; 
@@ -17,11 +18,16 @@ function signIn (req, res){
               console.log('Incorrect email or password');
               res.status(400).send('Incorrect email or password'); 
           }else{
-              res.json(results[0]);
-              console.log('user successfully found!'); 
+              const token = generateJwtToken(results[0].id);
+              res.json({ accessToken: token })
           }
       })
   
-  }
+}
+
+function generateJwtToken(id) {
+  const token = jwt.sign({ id }, process.env.JWT_SECRET);
+  return token;
+}
 
 module.exports = { signIn }

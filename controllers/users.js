@@ -64,6 +64,31 @@ function getUserById(req, res){
 
 }
 
+function updateUserById(req, res){
+    console.log('in the update user by id function');
+    let id = req.params.id;
+
+    let updatedUser = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    let sql = `UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?`
+    let replacements = [updatedUser.name, updatedUser.email, updatedUser.password, id]; 
+    sql = mysql.format(sql, replacements); 
+
+    pool.query(sql, function(err, results){
+        if(err){
+            console.error('Internal Service Error ', err);
+            res.sendStatus(500); 
+        }else{
+            res.json(updatedUser);
+            console.log('user with id ' + id + ' successfully updated'); 
+        }
+    })
+}
 
 
-module.exports = { getAllUsers, createNewUser, getUserById }
+
+module.exports = { getAllUsers, createNewUser, getUserById, updateUserById }
