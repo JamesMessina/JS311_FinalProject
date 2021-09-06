@@ -19,7 +19,7 @@ function signIn (req, res){
               res.status(400).send('Incorrect email or password'); 
           }else{
               const token = generateJwtToken(results[0].id);
-              res.json({ accessToken: token })
+              res.json({ name: results[0].name, accessToken: token })
           }
       })
   
