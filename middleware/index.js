@@ -1,22 +1,14 @@
-const jwksRsa = require('jwks-rsa');
-const jwt = require('express-jwt');  
+const jwt = require("jsonwebtoken");
 
 function logger(req, res, next){
   console.log('Logged', new Date().toISOString()); 
   next(); 
 }
 
-const checkJwt = jwt({
-    secret: jwksRsa.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 1000,
-      jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-    }),
-    audience: process.env.AUTH0_IDENTITY,
-    issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-    algorithms: ['RS256']
-
-});
+function checkJwt(req, res, next) {
+    const { authorization } = req.headers
+    res.send(authorization)
+    console.log(authorization)
+}
 
 module.exports = {checkJwt, logger}; 

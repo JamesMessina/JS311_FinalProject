@@ -1,5 +1,6 @@
 const pool = require('../sql/connection.js');
 const mysql = require('mysql');
+const { generateJwtToken } = require('./auth.js')
 
 function getAllUsers(req, res){
     console.log("in the get all users route");
@@ -35,8 +36,9 @@ function createNewUser(req, res){
             console.error('Internal Service Error ', err);
             res.status(500).send('Server Error Occured')
         }else{
-            res.json(newUser); 
-            console.log('created new user ' + newUser.name + newUser.email);
+            const token = generateJwtToken(newUser.email);
+            res.json({ name: newUser.name, accessToken: token })
+            console.log('created new user account for email ' + newUser.email + ' with token: ' + token);
         }
     })
 }
@@ -89,6 +91,25 @@ function updateUserById(req, res){
     })
 }
 
+function deleteUserById(req, res){
+    console.log('in delete route');
+
+    let id = req.params.id;
+    console.log('in the delete user by id function'); 
+
+    let sql = `DELETE FROM users WHERE id = ?`
+    let replaceVals = [id];
+    sql = mysql.format(sql, replaceVals);
+
+    pool.query(sql, function(err, results){
+        if(err){
+            console.error('Internal Service Error ', err);
+            res.sendStatus(500); 
+        }else{
+            res.send('user with id ' + id + ' deleted');
+        }
+    })
+}
 
 
-module.exports = { getAllUsers, createNewUser, getUserById, updateUserById }
+module.exports = { getAllUsers, createNewUser, getUserById, updateUserById, deleteUserById }
