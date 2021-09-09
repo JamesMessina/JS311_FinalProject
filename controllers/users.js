@@ -1,6 +1,6 @@
 const pool = require('../sql/connection.js');
 const mysql = require('mysql');
-const { generateJwtToken } = require('./auth.js')
+const { generateJwtToken, encryptPassword } = require('./auth.js')
 
 function getAllUsers(req, res){
     console.log("in the get all users route");
@@ -26,6 +26,7 @@ function createNewUser(req, res){
         email: req.body.email,
         password: req.body.password
     }
+
 
     let sql = `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`
     let replacements = [newUser.name, newUser.email, newUser.password];
