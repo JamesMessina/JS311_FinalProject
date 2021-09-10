@@ -1,6 +1,6 @@
 const pool = require('../sql/connection.js');
 const mysql = require('mysql');
-const { generateJwtToken, encryptPassword } = require('./auth.js')
+const { generateJwtToken } = require('./auth.js')
 
 function getAllUsers(req, res){
     console.log("in the get all users route");
