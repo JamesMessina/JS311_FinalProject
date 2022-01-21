@@ -9,9 +9,9 @@ router.get('/bands/search/:query', bandsController.getBandInfoByBandName);
 
 router.get('/bands/:band_id', bandsController.getBandInfoByBandId); 
 
-router.post('/bands', checkJwt, bandsController.createNewBand); 
+router.post('/bands', bandsController.createNewBand); 
 
-router.put('/bands/:id', checkJwt, bandsController.updateBandByBandId); 
+router.put('/bands/:id', bandsController.updateBandByBandId); 
 
 router.delete('/bands/:id', checkJwt, bandsController.deleteBandByBandId); 
 

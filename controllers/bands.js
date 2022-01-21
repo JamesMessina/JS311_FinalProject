@@ -80,12 +80,13 @@ function createNewBand(req, res){
         yearsActive: req.body.yearsActive,
         website: req.body.website, 
         currentMembers: req.body.currentMembers,
-        history_id: req.body.history_id
+        history_id: req.body.history_id,
+        image: req.body.image
     }
 
-    let sql = `INSERT INTO bands (band_name, genre_id, subgenre_id, origin, yearsActive, website, currentMembers, history_id)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-    let replacements = [newBand.band_name, newBand.genre_id, newBand.subgenre_id, newBand.origin, newBand.yearsActive, newBand.website, newBand.currentMembers, newBand.history_id]
+    let sql = `INSERT INTO bands (band_name, genre_id, subgenre_id, origin, yearsActive, website, currentMembers, history_id, image)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    let replacements = [newBand.band_name, newBand.genre_id, newBand.subgenre_id, newBand.origin, newBand.yearsActive, newBand.website, newBand.currentMembers, newBand.history_id, newBand.image]
     sql = mysql.format(sql, replacements); 
 
     pool.query(sql, function(err, results){
@@ -111,12 +112,13 @@ function updateBandByBandId(req, res){
         yearsActive: req.body.yearsActive,
         website: req.body.website, 
         currentMembers: req.body.currentMembers,
-        history_id: req.body.history_id
+        history_id: req.body.history_id,
+        image: req.body.image
     }
 
-    let sql = `UPDATE bands SET band_name = ?, genre_id = ?, subgenre_id = ?, origin = ?, yearsActive = ?, website = ?, currentMembers = ?, history_id = ?
+    let sql = `UPDATE bands SET band_name = ?, genre_id = ?, subgenre_id = ?, origin = ?, yearsActive = ?, website = ?, currentMembers = ?, history_id = ?, image = ?
     WHERE band_id = ?`
-    let replacements = [updatedBand.band_name, updatedBand.genre_id, updatedBand.subgenre_id, updatedBand.origin, updatedBand.yearsActive, updatedBand.website, updatedBand.currentMembers, updatedBand.history_id, id]
+    let replacements = [updatedBand.band_name, updatedBand.genre_id, updatedBand.subgenre_id, updatedBand.origin, updatedBand.yearsActive, updatedBand.website, updatedBand.currentMembers, updatedBand.history_id, updatedBand.image, id]
     sql = mysql.format(sql, replacements); 
 
     pool.query(sql, function(err, results){
